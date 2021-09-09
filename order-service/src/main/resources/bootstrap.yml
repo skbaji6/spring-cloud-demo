@@ -1,0 +1,29 @@
+server:
+    port: 8182
+eureka:
+    instance:
+        instance-id: ${spring.application.name}:${random.uuid}
+
+spring:
+    application:
+        name: order-service        
+    sleuth:
+        circuitbreaker:
+            enabled: false
+        integration:
+            enabled: true
+        sampler:
+            probability: 1
+    zipkin:
+        base-url: http://localhost:9411/
+    cloud:
+        config:
+            uri: http://localhost:8888
+        loadbalancer:
+            ribbon:
+                enabled: false
+        stream:
+            bindings:
+                notificationEventSupplier-out-0:
+                    destination: notification-events
+            source: notificationEventSupplier
